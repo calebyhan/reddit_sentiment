@@ -16,6 +16,8 @@
 #     print(result)
 
 from search_engine_parser import GoogleSearch
+from textblob import TextBlob
+
 
 def google(query):
     search_args = (query, 1)
@@ -23,5 +25,6 @@ def google(query):
     print(*search_args)
     gresults = gsearch.search(*search_args)
     return gresults['titles']
+
 
 print(google('collegeboard bad'))
