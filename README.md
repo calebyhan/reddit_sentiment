@@ -1,3 +1,3 @@
-Analyzes the sentiment of collegeboard entries online.
+Analyzes the sentiment of keyword instances on reddit.
 
-Uses [Search Engine Parser](https://pypi.org/project/search-engine-parser/) to find instances online. Uses [TextBlob](https://pypi.org/project/textblob/) for sentiment analysis.
+Uses [praw](https://github.com/praw-dev/praw) to find instances on reddit. Uses [TextBlob](https://pypi.org/project/textblob/) for sentiment analysis.
