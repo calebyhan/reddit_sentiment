@@ -3,7 +3,7 @@ import praw
 import csv
 from textblob import TextBlob
 import matplotlib.pyplot as plt
-import datetime
+import pandas as pd
 
 ID = config("ID")
 SECRET = config("SECRET")
@@ -49,17 +49,19 @@ def compile_data():
 
 
 def analyze_data():
-    with open("sentiment.csv", encoding="utf-8", newline="") as f:
-        reader = csv.DictReader(f, delimiter=',')
-        polarity = []
-        dates = []
-        for row in reader:
-            polarity.append(row["Polarity"])
-            dates.append(datetime.datetime.fromtimestamp(float(row["Date"])))
-        plt.plot(dates, polarity)
-        plt.xlabel('Time')
-        plt.ylabel('Polarity')
-        plt.show()
+    data = pd.read_csv('sentiment.csv', encoding="utf-8")
+
+    data['Date'] = pd.to_datetime(data['Date'])
+    data.set_index('Date', inplace=True)
+
+    data = data[data['Polarity'] != 0]
+    plt.scatter(data.index, data['Polarity'])
+
+    plt.xlim(data.index.min(), data.index.max())
+    plt.ylim(-1, 1)
+    plt.xlabel('Date')
+    plt.ylabel('Polarity')
+    plt.show()
 
 
 analyze_data()
